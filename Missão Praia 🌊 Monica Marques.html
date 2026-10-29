@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Missão Praia 🌊 Monica Marques</title>
+<style>
+:root{--ink:#12435a;--card:rgba(255,255,255,.88);--accent:#ff7a59;--accent2:#12a5b8;--sand:#ffe7b3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;color:var(--ink)}
+body{background:linear-gradient(#ffd89b 0%,#ffb88c 30%,#7fd6e6 62%,#12a5b8 100%);background-attachment:fixed;overflow-x:hidden;min-height:100vh}
+.sun{position:fixed;top:6vh;right:8vw;width:90px;height:90px;border-radius:50%;background:#fff3b0;box-shadow:0 0 60px 25px #fff3b088;animation:pulse 4s ease-in-out infinite;z-index:0}
+@keyframes pulse{50%{transform:scale(1.1)}}
+.waves{position:fixed;left:0;right:0;bottom:0;height:90px;z-index:0;pointer-events:none}
+.waves div{position:absolute;left:-50%;width:200%;height:90px;border-radius:45%;animation:wave 8s linear infinite}
+.waves div:nth-child(1){background:#ffffff55;bottom:-45px}
+.waves div:nth-child(2){background:#ffffff33;bottom:-55px;animation-duration:12s;animation-direction:reverse}
+@keyframes wave{to{transform:translateX(25%)}}
+main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:18px 16px 120px}
+.bar{height:10px;background:#ffffff80;border-radius:9px;overflow:hidden;margin:6px 0 4px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff4d79,#ff9eb5);transition:width .6s}
+.hud{display:flex;justify-content:space-between;font-weight:700;font-size:14px;color:#fff;text-shadow:0 1px 3px #0005}
+.card{background:var(--card);border-radius:26px;padding:24px 20px;margin-top:14px;box-shadow:0 12px 40px #0a3a5a33;backdrop-filter:blur(6px);animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:translateY(30px) scale(.94);opacity:0}}
+h1{margin:0 0 8px;font-size:28px;line-height:1.15}
+h2{margin:0 0 6px;font-size:21px}
+.tag{display:inline-block;background:var(--accent2);color:#fff;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:10px}
+.tag.p{background:var(--accent)}
+p{margin:6px 0 14px;line-height:1.45}
+.seq{font-size:34px;letter-spacing:6px;text-align:center;margin:12px 0;padding:12px;background:var(--sand);border-radius:18px;word-break:break-word}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts.one{grid-template-columns:1fr}
+button,.btn{font:inherit;cursor:pointer;border:0}
+.opt{background:#fff;border:2px solid #cfeaf0;border-radius:16px;padding:14px 8px;font-size:16px;font-weight:700;color:var(--ink);transition:transform .15s,border-color .15s,background .2s}
+.opt:hover{transform:translateY(-3px) rotate(-1deg);border-color:var(--accent2)}
+.opt.sel{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.opt.ok{background:#3ccf91;color:#fff;border-color:#3ccf91}
+.opt.bad{background:#ff6b6b;color:#fff;border-color:#ff6b6b;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.opt big{display:block;font-size:30px}
+.go{display:block;width:100%;margin-top:16px;background:var(--accent);color:#fff;font-weight:800;font-size:18px;padding:14px;border-radius:18px;box-shadow:0 6px 0 #d4563a;transition:transform .1s,box-shadow .1s}
+.go:active{transform:translateY(5px);box-shadow:0 1px 0 #d4563a}
+.go:disabled{opacity:.45;box-shadow:none}
+.hint{font-size:13px;opacity:.75;margin-top:10px;min-height:18px}
+.mem{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mc{aspect-ratio:1;perspective:600px;background:none;padding:0}
+.mc span{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:16px;font-size:38px;transition:transform .4s;background:linear-gradient(135deg,var(--accent2),#5ad1e0);color:#fff;transform-style:preserve-3d}
+.mc.f span,.mc.m span{background:#fff;transform:rotateY(360deg);box-shadow:inset 0 0 0 3px var(--accent2)}
+.mc.m span{box-shadow:inset 0 0 0 3px #3ccf91;background:#e6fff4}
+.mc:not(.f):not(.m) span::before{content:"?";font-weight:800}
+.mc.f span::before,.mc.m span::before{content:none}
+.mc i{font-style:normal;display:none}
+.mc.f i,.mc.m i{display:block}
+.mc span{position:relative}
+.noBtn{background:#e5eef2;color:var(--ink);font-weight:700;padding:12px 22px;border-radius:16px;font-size:16px}
+.row{display:flex;gap:12px;justify-content:center;align-items:center;margin-top:18px;min-height:56px;flex-wrap:wrap}
+.yes{background:#3ccf91;color:#fff;font-weight:800;font-size:20px;padding:14px 30px;border-radius:18px;box-shadow:0 6px 0 #1fa06e;animation:beat 1.2s infinite}
+@keyframes beat{50%{transform:scale(1.07)}}
+input[type=date],input[type=time]{font:inherit;padding:12px;border-radius:14px;border:2px solid #cfeaf0;width:100%;margin:6px 0;color:var(--ink)}
+.sum{background:var(--sand);border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.7;margin:10px 0}
+.float{position:fixed;pointer-events:none;z-index:50;font-size:26px;animation:up 1.2s ease-out forwards}
+@keyframes up{to{transform:translateY(-110px) scale(1.5);opacity:0}}
+.fall{position:fixed;top:-40px;pointer-events:none;z-index:60;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.crab{position:fixed;bottom:34px;left:-60px;font-size:34px;z-index:2;animation:crab 16s linear infinite;cursor:pointer}
+@keyframes crab{to{left:105vw}}
+.deck{position:relative;height:310px;margin:8px 0}
+.sw{position:absolute;inset:0;border-radius:24px;background:linear-gradient(160deg,#fff,#d9f4f8);box-shadow:0 10px 30px #0a3a5a40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px;touch-action:none;user-select:none;cursor:grab}
+.sw.back{transform:scale(.93) translateY(14px);opacity:.7}
+.sw .em{font-size:90px}.sw b{font-size:22px}.sw small{opacity:.75;font-size:14px}
+.st{position:absolute;top:18px;font-weight:900;font-size:22px;border:4px solid;border-radius:10px;padding:2px 10px;opacity:0;text-decoration:none}
+.st.l{left:16px;color:#3ccf91;transform:rotate(-14deg)}.st.n{right:16px;color:#ff6b6b;transform:rotate(14deg)}
+.rb{width:64px;height:64px;border-radius:50%;font-size:28px;background:#fff;box-shadow:0 6px 16px #0a3a5a30;transition:transform .15s}
+.rb:active{transform:scale(.88)}.rb.like{color:#ff4d79}.rb.nope{color:#ff6b6b}
+.mt{font-size:40px;font-weight:900;background:linear-gradient(90deg,#ff4d79,#ffb347);-webkit-background-clip:text;background-clip:text;color:transparent;animation:beat 1s infinite}
+.av{display:flex;justify-content:center;gap:0;margin:14px 0}
+.av span{width:96px;height:96px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:52px;border:4px solid #ff4d79;box-shadow:0 6px 20px #0a3a5a40}
+.av span:first-child{transform:translateX(14px) rotate(-8deg)}.av span:last-child{transform:translateX(-14px) rotate(8deg)}
+.prof{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 10px 30px #0a3a5a40;background:#fff;touch-action:none;cursor:grab;user-select:none;margin:10px 0}
+.pic{height:330px;background-size:cover;background-position:center top}
+.info{padding:12px 14px;text-align:left}.info h2{margin:0}.info small{opacity:.75}.info p{margin:8px 0 2px}
+.rb.big{width:78px;height:78px;font-size:36px;color:#ff4d79;transition:transform .3s}
+.ph{width:150px;height:190px;border-radius:18px;background-size:cover;background-position:center top;box-shadow:0 6px 16px #0a3a5a40}
+.fh{position:fixed;bottom:-30px;pointer-events:none;z-index:1;animation:fh linear forwards;opacity:.8}
+@keyframes fh{to{transform:translateY(-110vh) translateX(30px);opacity:0}}
+.lov{list-style:none;padding:0;margin:12px 0;text-align:left}
+.lov li{display:flex;gap:12px;align-items:center;background:#fff;border-radius:16px;padding:12px;margin:8px 0;box-shadow:0 4px 12px #0a3a5a18;animation:pop .6s both}
+.lov li:nth-child(2){animation-delay:.2s}.lov li:nth-child(3){animation-delay:.4s}
+.lov li span{font-size:30px}.lov li b{display:block}
+.hb{font-size:56px;text-align:center;animation:beat 1.1s infinite}
+.sf{height:120px;display:flex;align-items:center;justify-content:center;transition:font-size .15s}
+.pic.q{display:flex;flex-direction:column;align-items:center;justify-content:center;height:260px;padding:20px;background:linear-gradient(160deg,#ffd1dc,#ffb3c6 50%,#ff8fab);color:#fff;text-shadow:0 2px 8px #c2185b66}
+.pic.q h1{font-size:30px;margin:6px 0 0}.big2{font-size:70px;animation:beat 1.1s infinite}
+.adm h2{margin:14px 0 6px}.rs{background:#fff;border-radius:16px;padding:12px 14px;margin:10px 0;box-shadow:0 4px 12px #0a3a5a18;font-size:14px;line-height:1.7;text-align:left}
+.rs b{color:#d4563a}.mtr{height:12px;border-radius:9px;background:#eee;overflow:hidden;margin:2px 0 6px}.mtr i{display:block;height:100%;background:linear-gradient(90deg,#ffd166,#ff4d79,#b5179e)}
+.adm textarea{width:100%;height:120px;border-radius:14px;border:2px solid #cfeaf0;padding:10px;font:inherit;color:var(--ink)}
+.live{display:inline-block;width:10px;height:10px;border-radius:50%;background:#3ccf91;margin-right:6px;animation:pulse 1.5s infinite}
+</style>
+</head>
+<body>
+<div class="sun"></div>
+<div class="crab" id="crab">🦀</div>
+<div class="waves"><div></div><div></div></div>
+<main>
+  <div class="hud"><span id="lvl">Missão Praia</span><span id="score">🐚 0</span></div>
+  <div class="bar"><i id="bar"></i></div>
+  <div id="stage"></div>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const stage=$('#stage');
+let step=0,score=0;const ans={};
+const TOTAL=15;
+const LB={drink:'Bebida',time:'Horário',food:'Petiscos',beijo:'Primeiro beijo',safa:'Nível de safadeza',carinho:'Carinhos',music:'Música',programas:'Programas curtidos',convite:'Convite final',dia:'Dia',hora:'Hora',nosPerfil:'Vezes que apertou ✖ no perfil',nosConvite:'Vezes que tentou o Não no convite',score:'Conchinhas'};
+let dbr=null,sid=Math.random().toString(36).slice(2,9);
+(async()=>{try{if(window.claude&&claude.use){dbr=await claude.use('db');}}catch(e){}})();
+function save(){if(!dbr)return;try{dbr.collection('responses').doc(sid).set({ans:Object.assign({},ans,{score}),step,updated:Date.now()}).catch(()=>{});}catch(e){}}
+
+function bump(n){score+=n;$('#score').textContent='🐚 '+score;}
+function prog(){$('#bar').style.width=(step/(TOTAL-1)*100)+'%';}
+
+function puzzle(tag,title,text,seq,opts,correct,hintOk,hintBad){
+  return {render(){
+    stage.innerHTML=`<div class="card"><span class="tag">${tag}</span><h2>${title}</h2><p>${text}</p>${seq?`<div class="seq">${seq}</div>`:''}<div class="opts">${opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}</div><div class="hint" id="hint"></div></div>`;
+    let tries=0,done=false;
+    stage.querySelectorAll('.opt').forEach(b=>b.onclick=e=>{
+      if(done)return;const i=+b.dataset.i;
+      if(i===correct){done=true;b.classList.add('ok');bump(tries?1:3);$('#hint').textContent=hintOk;burst(e);setTimeout(next,1400);}
+      else{tries++;b.classList.add('bad');b.disabled=true;$('#hint').textContent=hintBad;}
+    });
+  }};
+}
+function pref(key,title,text,opts,multi){
+  return {render(){
+    stage.innerHTML=`<div class="card"><span class="tag p">💌 CONHECENDO VOCÊ</span><h2>${title}</h2><p>${text}</p><div class="opts">${opts.map((o,i)=>`<button class="opt" data-i="${i}"><big>${o[0]}</big>${o[1]}</button>`).join('')}</div><button class="go" id="ok" disabled>Próxima ➜</button></div>`;
+    const sel=new Set();
+    stage.querySelectorAll('.opt').forEach(b=>b.onclick=e=>{
+      const i=+b.dataset.i;
+      if(multi){sel.has(i)?sel.delete(i):sel.add(i);b.classList.toggle('sel');}
+      else{sel.clear();stage.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));sel.add(i);b.classList.add('sel');}
+      float(e.clientX,e.clientY,opts[i][0]);$('#ok').disabled=!sel.size;
+    });
+    $('#ok').onclick=()=>{ans[key]=[...sel].map(i=>opts[i][0]+' '+opts[i][1]).join(', ');bump(1);next();};
+  }};
+}
+
+const steps=[
+ {render(){stage.innerHTML=`<div class="card" style="text-align:center"><div class="hb">💗</div><span class="tag p">💌 CONVITE FOFINHO</span><h1>Oii, Monica! 🥰</h1><p>Fiz um joguinho só pra você, bem rapidinho e sem enrolação. Olha só como funciona:</p><ul class="lov"><li><span>💘</span><div><b>1. Dá uma olhada no meu perfil</b>Vê se rola um match 😏</div></li><li><span>🌶️</span><div><b>2. Responde umas perguntinhas</b>Tudo sobre o nosso date, sem vergonha. Tem uns desafios de cabeça no meio 🧠</div></li><li><span>🌅</span><div><b>3. Responde meu convite</b>Pra gente ir pra praia, só nós dois 😘</div></li></ul><button class="go" id="start">Bora! 💗</button></div>`;$('#start').onclick=next;}},
+ {render(){
+   let nos=0;
+   stage.innerHTML=`<div class="card" style="text-align:center"><span class="tag p">💘 OLHA QUEM APARECEU</span><div class="prof" id="prof"><div class="pic q"><div class="big2">💘</div><h1>Você quer dar um match comigo?</h1></div><div class="info"><h2>Seu date 😎</h2><small>📍 pertinho de você · 🌊 procurando: alguém pra um date na praia</small><p>Bom de papo, fã de pôr do sol, especialista em batata frita 🍟 e beijo bom? Sem comentários 😏</p></div><u class="st l">MATCH</u><u class="st n">NÃO</u></div><div class="row"><button class="rb nope" id="bn">✖</button><button class="rb like big" id="bl">❤</button></div><div class="hint" id="ph2">Arrasta pra direita ou toca no ❤, vai 🥰</div></div>`;
+   const prof=$('#prof'),L=prof.querySelector('.l'),N=prof.querySelector('.n');
+   function yes(){bump(3);rain();stage.innerHTML=`<div class="card" style="text-align:center"><div class="mt">É UM MATCH!</div><div class="av"><span>😎</span><span>👩</span></div><p>Deu match, Monica! 💞<br>Agora responde umas perguntinhas pra eu te conhecer melhor 😏</p><button class="go" id="cn">Bora continuar 💗</button></div>`;$('#cn').onclick=next;}
+   function no(){nos++;ans.nosPerfil=nos;prof.style.transition='transform .4s';prof.style.transform='';L.style.opacity=0;N.style.opacity=0;prof.animate([{transform:'translateX(-12px)'},{transform:'translateX(12px)'},{transform:'none'}],{duration:300});
+     const m=['Tem certeza? 🥺','Olha de novo esse sorriso 👀','Última chance, hein… 💔'];
+     $('#ph2').textContent=nos<3?m[nos-1]:'O botão ✖ cansou e foi tomar sorvete 🍦 Só sobrou o ❤ 😂';
+     $('#bl').style.transform=`scale(${1+nos*.18})`;
+     if(nos>=3){$('#bn').disabled=true;$('#bn').style.opacity=.25;}}
+   let sx=0,dx=0,drag=false;
+   prof.onpointerdown=e=>{drag=true;sx=e.clientX;prof.setPointerCapture(e.pointerId);prof.style.transition='none';};
+   prof.onpointermove=e=>{if(!drag)return;dx=e.clientX-sx;prof.style.transform=`translateX(${dx}px) rotate(${dx/25}deg)`;L.style.opacity=Math.max(0,dx/90);N.style.opacity=Math.max(0,-dx/90);};
+   prof.onpointerup=()=>{if(!drag)return;drag=false;if(dx>90)yes();else if(dx<-90&&nos<3)no();else{prof.style.transition='transform .3s';prof.style.transform='';L.style.opacity=0;N.style.opacity=0;}dx=0;};
+   $('#bl').onclick=yes;$('#bn').onclick=no;
+ }},
+ puzzle('🧠 DESAFIO 1','Sequência da praia','Bora esquentar o cérebro: qual vem depois?','☀️ 🌊 🐚 ☀️ 🌊 ❓',['🐚','☀️','🌴','🌊'],0,'Isso! Linda e esperta, hein 😏⭐','Quase… olha o ciclo de 3 itens 🥺'),
+pref('drink','O que você pede pra gente brindar? 🥂','Escolhe o que combina com você, sem julgamento.',[['🥥','Água de coco'],['🍹','Drink bem gelado'],['🍺','Cervejinha'],['🧃','Suco']]),
+ puzzle('🧠 DESAFIO 2','Charada das contas','🐚 + 🐚 = 10<br>🐚 + 🌴 = 7<br>Quanto vale 🌴 ?','',['2','3','5','7'],0,'Perfeito! 🐚 = 5, então 🌴 = 2. Linda e inteligente 🧠💗','Hmm… descobre primeiro quanto vale uma 🐚 😉'),
+pref('time','Que horas é melhor pro nosso date?','Escolhe o clima que você quer.',[['🌅','Nascer do sol (acorda cedo, hein)'],['☀️','Tardezinha'],['🌇','Pôr do sol romântico'],['🌙','Noite com lua']]),
+ {render(){
+   const em=['🐚','🌴','🍉'];let cards=[...em,...em].sort(()=>Math.random()-.5);let open=[],matched=0,lock=false,moves=0;
+   stage.innerHTML=`<div class="card"><span class="tag">🃏 DESAFIO 3</span><h2>Memória das conchinhas</h2><p>Acha os 3 pares, vai. Jogadas: <b id="mv">0</b></p><div class="mem">${cards.map((c,i)=>`<button class="mc" data-i="${i}"><span><i>${c}</i></span></button>`).join('')}</div></div>`;
+   stage.querySelectorAll('.mc').forEach(b=>b.onclick=e=>{
+     const i=+b.dataset.i;if(lock||b.classList.contains('f')||b.classList.contains('m'))return;
+     b.classList.add('f');open.push(i);
+     if(open.length===2){moves++;$('#mv').textContent=moves;lock=true;
+       const[a,c]=open;
+       if(cards[a]===cards[c]){[a,c].forEach(k=>{const el=stage.querySelectorAll('.mc')[k];el.classList.remove('f');el.classList.add('m')});matched++;open=[];lock=false;burst(e);bump(1);
+         if(matched===3){bump(2);setTimeout(next,1200);}}
+       else setTimeout(()=>{[a,c].forEach(k=>stage.querySelectorAll('.mc')[k].classList.remove('f'));open=[];lock=false;},800);}
+   });
+ }},
+pref('food','O que a gente belisca juntinhos? 🍤','Pode marcar mais de uma, eu pago 😌',[['🍤','Petisco'],['🍦','Sorvete'],['🧀','Queijo coalho'],['🍉','Frutas']],true),
+pref('beijo','E o primeiro beijo, quando rola? 😘','Responde com o coração 🙈',[['😳','Só depois de uns papos'],['😏','Se rolar clima, rola'],['😘','Logo de cara!'],['🙈','Me surpreende']]),
+ {render(){
+   const lv=[[20,'😇','Anjinho'],[40,'🥰','Fofa e tímida'],[60,'😏','Atrevidinha'],[80,'🌶️','Pimentinha'],[101,'😈','Perigosa, cuidado!']];
+   stage.innerHTML=`<div class="card" id="cd" style="text-align:center"><span class="tag p">🌶️ TERMÔMETRO DO DATE</span><h2>Qual seu nível de safadeza? 😏</h2><p>Arrasta aí, sem vergonha. Só eu vou ver 🙈</p><div class="sf" id="sf">😇</div><b id="sl">Anjinho · 10%</b><input type="range" id="rg" min="0" max="100" value="10" style="width:100%;accent-color:#ff4d79;margin:14px 0"><div class="hint">🥶 fofinha ← → pegando fogo 🔥</div><button class="go" id="ok">Próxima ➜</button></div>`;
+   let last='';
+   const upd=e=>{const v=+$('#rg').value,l=lv.find(x=>v<x[0]);$('#sf').textContent=l[1];$('#sf').style.fontSize=(48+v*.6)+'px';$('#sl').textContent=l[2]+' · '+v+'%';$('#cd').style.background=`rgba(255,${Math.round(245-v*1.3)},${Math.round(245-v*1.5)},.9)`;if(l[1]!==last&&e){last=l[1];const r=$('#sf').getBoundingClientRect();float(r.left+r.width/2,r.top,l[1]);}};
+   $('#rg').oninput=upd;upd();
+   $('#ok').onclick=()=>{ans.safa=$('#sl').textContent;bump(1);next();};
+ }},
+ pref('carinho','Qual carinho você mais ama num date? 🥰','Pode marcar vários, eu anoto tudo 📝',[['🤝','Mão dada'],['🫂','Abraço apertado'],['💆','Cafuné'],['😘','Beijinhos']],true),
+pref('music','Que música toca no nosso date? 🎶','Eu levo a caixinha de som.',[['🎸','Pop/Rock'],['🎶','Sertanejo'],['🌴','Reggae'],['💃','Funk/Pagode']]),
+ {render(){
+   const deck=[['🚶','Caminhada de mãos dadas','Pés na água e papo bom'],['🏊','Mergulho a dois','Água geladinha, tem que abraçar 😏'],['🍧','Açaí dividindo a colher','Sem ciúme da granola'],['😘','Beijinho no pôr do sol','Cena de filme, só falta a trilha'],['🧺','Cafuné na canga','Deitadinhos olhando as nuvens'],['😎','Seu date','Bom de papo · Ruim no vôlei · Aceita abraço e beijo']];
+   let i=0;const liked=[];
+   stage.innerHTML=`<div class="card" style="text-align:center"><span class="tag p">🔥 TINDER DA PRAIA</span><h2>Quais programas você topa? 💘</h2><p>Arrasta pra direita se topa, esquerda se não 😜</p><div class="deck" id="deck"></div><div class="row"><button class="rb nope" id="bn">✖</button><button class="rb like" id="bl">❤</button></div><div class="hint" id="mh"></div></div>`;
+   const deckEl=$('#deck');
+   function mk(d,top){const c=document.createElement('div');c.className='sw'+(top?'':' back');c.innerHTML=`<div class="em">${d[0]}</div><b>${d[1]}</b><small>${d[2]}</small><u class="st l">CURTIR</u><u class="st n">PASSAR</u>`;return c;}
+   function draw(){deckEl.innerHTML='';if(deck[i+1])deckEl.appendChild(mk(deck[i+1],false));const c=mk(deck[i],true);deckEl.appendChild(c);attach(c);}
+   function attach(c){let sx=0,dx=0,drag=false;const L=c.querySelector('.l'),N=c.querySelector('.n');
+     c.onpointerdown=e=>{drag=true;sx=e.clientX;c.setPointerCapture(e.pointerId);c.style.transition='none';};
+     c.onpointermove=e=>{if(!drag)return;dx=e.clientX-sx;c.style.transform=`translateX(${dx}px) rotate(${dx/15}deg)`;L.style.opacity=Math.max(0,dx/90);N.style.opacity=Math.max(0,-dx/90);};
+     c.onpointerup=()=>{if(!drag)return;drag=false;if(Math.abs(dx)>90)decide(dx>0,c);else{c.style.transition='transform .3s';c.style.transform='';L.style.opacity=0;N.style.opacity=0;}dx=0;};}
+   function decide(like,c){c=c||deckEl.lastChild;const last=i===deck.length-1;
+     if(last&&!like){c.style.transition='transform .4s';c.style.transform='';c.querySelectorAll('.st').forEach(s=>s.style.opacity=0);$('#mh').textContent='Ei! Esse você não pode passar 😂 Tenta de novo!';return;}
+     c.style.transition='transform .45s,opacity .45s';c.style.transform=`translateX(${like?600:-600}px) rotate(${like?30:-30}deg)`;c.style.opacity=0;
+     if(like&&!last)liked.push(deck[i][1]);
+     if(last){setTimeout(match,450);return;}
+     i++;setTimeout(draw,350);}
+   function match(){ans.programas=liked.join(', ')||'nenhum 😅';bump(3);rain();
+     stage.innerHTML=`<div class="card" style="text-align:center"><div class="mt">TUDO COMBINA! 💞</div><div class="av"><span>👩</span><span>😎</span></div><p>Os programas de praia que você curtiu estão confirmados 💞<br><small>${liked.length} programa(s) de praia aprovados</small></p><button class="go" id="cn">Continuar ➜</button></div>`;$('#cn').onclick=next;}
+   $('#bn').onclick=()=>decide(false);$('#bl').onclick=()=>decide(true);
+   draw();
+ }},
+ {render(){
+   stage.innerHTML=`<div class="card" style="text-align:center"><span class="tag p">💖 DESAFIO FINAL</span><h1>Monica Marques… 🥺</h1><h2>bora pra praia comigo? 🌅😘</h2><p>Tenta clicar no "Não", vai 😏</p><div class="row" id="row"><button class="yes" id="yes">Bora! 💘</button><button class="noBtn" id="no">Não</button></div></div>`;
+   const no=$('#no');let n=0;
+   const flee=e=>{e.preventDefault();n++;no.style.position='fixed';no.style.left=Math.random()*(innerWidth-110)+'px';no.style.top=Math.random()*(innerHeight-60)+'px';no.textContent=['Não','Tem certeza?','Pensa bem…','Ops 😅','Impossível!','Desiste 😂'][Math.min(n,5)];$('#yes').style.fontSize=(20+n*3)+'px';};
+   no.addEventListener('mouseenter',flee);no.addEventListener('touchstart',flee);no.addEventListener('click',flee);
+   $('#yes').onclick=()=>{ans.convite='Topou! 💘';ans.nosConvite=n;rain();next();};
+ }},
+ {render(){
+   const lines=Object.entries({drink:'Bebida',time:'Horário',food:'Petiscos',beijo:'Primeiro beijo',safa:'Nível de safadeza',carinho:'Carinhos',music:'Música',programas:'Programas curtidos'}).map(([k,l])=>`${l}: ${ans[k]||'-'}`);
+   stage.innerHTML=`<div class="card" style="text-align:center"><span class="tag">🎉 MISSÃO COMPLETA</span><h1>Eba, ela topou! 💘</h1><p>Você juntou <b>${score} 🐚</b>! Olha o que eu descobri sobre você 😏:</p><div class="sum" style="text-align:left">${lines.join('<br>')}</div><p>Agora escolhe o dia e a hora, vai 🥰:</p><input type="date" id="d"><input type="time" id="t" value="16:00"><a class="go btn" id="wa" target="_blank" rel="noopener" style="text-decoration:none">Mandar minha resposta no Zap 📲</a></div>`;
+   const upd=()=>{ans.dia=$('#d').value?$('#d').value.split('-').reverse().join('/'):'';ans.hora=$('#t').value;save();const d=$('#d').value?$('#d').value.split('-').reverse().join('/'):'(a combinar)';const msg=`Oii! Aqui é a Monica 😘 Fiz o joguinho todo, juntei ${score} conchinhas e topei o date na praia! 🌊\n${lines.join('\n')}\nDia: ${d} às ${$('#t').value}`;$('#wa').href='https://wa.me/?text='+encodeURIComponent(msg);};
+   $('#d').onchange=upd;$('#t').onchange=upd;upd();
+ }}
+];
+
+function next(){step++;if(step>=steps.length)step=steps.length-1;go();}
+function go(){save();prog();$('#lvl').textContent='💗 Medidor de amor '+Math.round(step/(TOTAL-1)*100)+'%';steps[step].render();scrollTo({top:0,behavior:'smooth'});}
+
+function float(x,y,t){const e=document.createElement('div');e.className='float';e.textContent=t;e.style.left=x-12+'px';e.style.top=y-12+'px';document.body.appendChild(e);setTimeout(()=>e.remove(),1200);}
+function burst(e){const x=e.clientX||innerWidth/2,y=e.clientY||innerHeight/2;['✨','💙','🐚','⭐'].forEach((t,i)=>setTimeout(()=>float(x+(i-1.5)*26,y,t),i*80));}
+function rain(){for(let i=0;i<60;i++){const e=document.createElement('div');e.className='fall';e.textContent=['💖','🐚','💘','✨','💗','🍹'][i%6];e.style.left=Math.random()*100+'vw';e.style.fontSize=18+Math.random()*26+'px';e.style.animationDuration=2.5+Math.random()*3+'s';e.style.animationDelay=Math.random()*1.2+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),7500);}}
+document.addEventListener('click',e=>{if(!e.target.closest('button,a,input'))float(e.clientX,e.clientY,['💗','🐚','💙','💘'][Math.floor(Math.random()*4)]);});
+$('#crab').onclick=e=>{bump(2);float(e.clientX,e.clientY-20,'+2 🐚');};
+
+function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function card(a,when){const keys=Object.keys(LB).filter(k=>a[k]!==undefined&&a[k]!=='');
+  const rows=keys.map(k=>{let v=esc(a[k]);if(k==='safa'){const m=String(a[k]).match(/(\d+)%/);if(m)v+=`<div class="mtr"><i style="width:${m[1]}%"></i></div>`;}return `<b>${LB[k]}:</b> ${v}`;}).join('<br>');
+  return `<div class="rs">${when?`<small>🕒 ${esc(when)}</small><br>`:''}${rows||'Ainda sem respostas'}</div>`;}
+function parsePaste(t){const rev={};Object.entries(LB).forEach(([k,v])=>rev[v]=k);const a={};
+  t.split(/\n/).forEach(l=>{const i=l.indexOf(':');if(i<0)return;const lab=l.slice(0,i).trim(),k=rev[lab];if(k)a[k]=l.slice(i+1).trim();});
+  const m=t.match(/(\d+)\s*conchinhas/);if(m)a.score=m[1];const dm=t.match(/Dia:\s*([^\n]*?)\s+às\s+(\d\d:\d\d)/);if(dm){a.dia=dm[1];a.hora=dm[2];}return a;}
+let unsub=null;
+function adminView(){
+  document.querySelector('.hud').style.display='none';document.querySelector('.bar').style.display='none';
+  stage.innerHTML=`<div class="card adm"><span class="tag p">🔐 PAINEL DO DATE</span><h1>Respostas da Monica 💗</h1><p id="st"><span class="live"></span>Conectando…</p><div id="lst"></div><h2>📋 Colar mensagem do WhatsApp</h2><p>Se ela te mandou o resumo, cola aqui que eu organizo bonitinho:</p><textarea id="pt" placeholder="Cola a mensagem aqui…"></textarea><button class="go" id="pb">Organizar respostas ✨</button><div id="pr"></div><a href="#" id="back" class="hint" style="display:block;text-align:center">← voltar pro jogo</a></div>`;
+  $('#back').onclick=e=>{e.preventDefault();location.hash='';};
+  $('#pb').onclick=()=>{const a=parsePaste($('#pt').value);$('#pr').innerHTML=Object.keys(a).length?card(a,'colado do WhatsApp'):'<p>Não achei respostas nesse texto 🤔</p>';};
+  const st=$('#st'),lst=$('#lst');
+  const tryDb=async()=>{
+    let db=dbr;if(!db&&window.claude&&claude.use){try{db=await claude.use('db');}catch(e){}}
+    if(!db){st.innerHTML='⚠️ Ao vivo indisponível aqui. Use a mensagem do WhatsApp abaixo.';return;}
+    unsub=db.collection('responses').onSnapshot(snap=>{
+      const rows=snap.docs.map(d=>d.data()).filter(Boolean).sort((a,b)=>(b.updated||0)-(a.updated||0));
+      st.innerHTML=`<span class="live"></span>Ao vivo · ${rows.length} sessão(ões)`;
+      lst.innerHTML=rows.length?rows.map(r=>card(Object.assign({},r.ans),new Date(r.updated).toLocaleString('pt-BR')+' · etapa '+(r.step+1)+'/'+TOTAL)).join(''):'<p>Ninguém jogou ainda 👀</p>';
+    },()=>{st.innerHTML='⚠️ Sem permissão pra ler ao vivo nesta conta. Use a mensagem do WhatsApp abaixo.';});
+  };tryDb();
+}
+function route(){if(unsub){try{unsub();}catch(e){}unsub=null;}
+  if(location.hash==='#admin'){adminView();}
+  else{document.querySelector('.hud').style.display='';document.querySelector('.bar').style.display='';go();}}
+addEventListener('hashchange',route);
+setInterval(()=>{const e=document.createElement('div');e.className='fh';e.textContent=['💗','💖','💕','💘'][Math.floor(Math.random()*4)];e.style.left=Math.random()*100+'vw';e.style.fontSize=14+Math.random()*20+'px';e.style.animationDuration=6+Math.random()*5+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),11000);},900);
+route();
+</script>
+</body>
+</html>
